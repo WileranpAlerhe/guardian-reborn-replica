@@ -191,6 +191,25 @@ function IntegrationsAdmin() {
         >
           <Save className="h-4 w-4" /> {savingGateway ? "Salvando..." : "Salvar chave do gateway"}
         </button>
+
+        <Field label="Webhook URL — StreetPays" hint="Copie este endereço e cole no painel da StreetPays como URL de notificação/webhook.">
+          <div className="flex items-center gap-2">
+            <input
+              value={webhookUrl}
+              readOnly
+              className="input cursor-text bg-muted font-mono text-xs"
+            />
+            <button
+              type="button"
+              onClick={copyWebhook}
+              disabled={!webhookUrl}
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-white text-muted-foreground hover:text-ink disabled:opacity-60"
+              aria-label="Copiar webhook URL"
+            >
+              {copiedWebhook ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
+            </button>
+          </div>
+        </Field>
       </div>
 
       {/* Tracking */}
