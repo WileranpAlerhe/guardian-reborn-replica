@@ -118,7 +118,35 @@ function IntegrationsAdmin() {
     }
   };
 
-  const webhookUrl = webhookOrigin ? `${webhookOrigin}/api/public/webhooks/streetpays` : "";
+  const webhookUrl = `${webhookOrigin || "https://SEU-DOMINIO"}/api/public/webhooks/streetpays`;
+
+  const utmUrl = (() => {
+    try {
+      const base = utm.baseUrl || (typeof window !== "undefined" ? window.location.origin + "/" : "https://SEU-DOMINIO/");
+      const u = new URL(base);
+      if (utm.source) u.searchParams.set("utm_source", utm.source);
+      if (utm.medium) u.searchParams.set("utm_medium", utm.medium);
+      if (utm.campaign) u.searchParams.set("utm_campaign", utm.campaign);
+      if (utm.content) u.searchParams.set("utm_content", utm.content);
+      if (utm.term) u.searchParams.set("utm_term", utm.term);
+      // Google Ads auto-tag: gclid é preservado automaticamente pelo tracking.ts
+      return u.toString();
+    } catch {
+      return "";
+    }
+  })();
+
+  const copyUtm = async () => {
+    if (!utmUrl) return;
+    try {
+      await navigator.clipboard.writeText(utmUrl);
+      setCopiedUtm(true);
+      setTimeout(() => setCopiedUtm(false), 2000);
+    } catch {
+      toast.error("Não foi possível copiar o link.");
+    }
+  };
+
 
   const copyWebhook = async () => {
     if (!webhookUrl) return;
