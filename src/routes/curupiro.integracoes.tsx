@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Cable, Save, KeyRound, Eye, EyeOff } from "lucide-react";
+import { Cable, Save, KeyRound, Eye, EyeOff, Copy, Check } from "lucide-react";
 import {
   getSettingsFn,
   upsertSettingsFn,
