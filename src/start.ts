@@ -1,8 +1,9 @@
 import { createStart, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
+import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
 
-const errorMiddleware = createMiddleware().server(async ({ next }) => {
+const errorMiddleware = createMiddleware().server(async ({ next, request, pathname }) => {
   try {
     return await next();
   } catch (error) {
@@ -10,6 +11,13 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
       throw error;
     }
     console.error(error);
+    // For server functions, let TanStack serialize the error as JSON so the
+    // client can surface a real message (e.g. "Senha incorreta") instead of
+    // an opaque HTML fallback.
+    const isServerFn =
+      pathname?.startsWith("/_serverFn/") ||
+      request?.headers?.get("x-tsr-serverFn") === "true";
+    if (isServerFn) throw error;
     return new Response(renderErrorPage(), {
       status: 500,
       headers: { "content-type": "text/html; charset=utf-8" },
@@ -17,6 +25,8 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
   }
 });
 
+
 export const startInstance = createStart(() => ({
+  functionMiddleware: [attachSupabaseAuth],
   requestMiddleware: [errorMiddleware],
 }));

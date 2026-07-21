@@ -1,0 +1,1 @@
+ALTER TABLE public.site_settings ADD COLUMN IF NOT EXISTS streetpays_api_key TEXT;

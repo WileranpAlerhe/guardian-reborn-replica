@@ -11,6 +11,11 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Toaster } from "@/components/ui/sonner";
+import { TrackingScripts } from "@/components/site/TrackingScripts";
+import { CartProvider } from "@/lib/cart";
+import { CartDrawer } from "@/components/site/CartDrawer";
+import { RouteTransition } from "@/components/site/RouteTransition";
 
 function NotFoundComponent() {
   return (
@@ -76,22 +81,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      {
+        name: "viewport",
+        content:
+          "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
+      },
+      { name: "theme-color", content: "#0F8A6C" },
+      { title: "PratiHome — Tudo para sua casa mais bonita e prática" },
+      {
+        name: "description",
+        content:
+          "Móveis, decoração, eletroportáteis e utensílios com até 40% OFF, frete grátis acima de R$ 100 e 10x sem juros.",
+      },
+      { property: "og:site_name", content: "PratiHome" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:title", content: "PratiHome — Sua casa mais bonita e prática" },
+      { name: "twitter:title", content: "PratiHome — Sua casa mais bonita e prática" },
+      { property: "og:description", content: "Móveis, decoração e utensílios com frete grátis e 10x sem juros." },
+      { name: "twitter:description", content: "Móveis, decoração e utensílios com frete grátis e 10x sem juros." },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +137,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <CartProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <CartDrawer />
+        <RouteTransition />
+        <Toaster />
+        <TrackingScripts />
+      </CartProvider>
     </QueryClientProvider>
   );
 }
