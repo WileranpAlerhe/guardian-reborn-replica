@@ -46,6 +46,10 @@ function IntegrationsAdmin() {
     if (data) setForm(data);
   }, [data]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") setWebhookOrigin(window.location.origin);
+  }, []);
+
   const getPassword = () => (typeof window !== "undefined" ? localStorage.getItem("oe.pw.v1") : null);
 
   // Load gateway key once
