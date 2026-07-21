@@ -39,6 +39,8 @@ function IntegrationsAdmin() {
   const [gatewayLoaded, setGatewayLoaded] = useState(false);
   const [savingGateway, setSavingGateway] = useState(false);
   const [hasEnvFallback, setHasEnvFallback] = useState(false);
+  const [webhookOrigin, setWebhookOrigin] = useState("");
+  const [copiedWebhook, setCopiedWebhook] = useState(false);
 
   useEffect(() => {
     if (data) setForm(data);
