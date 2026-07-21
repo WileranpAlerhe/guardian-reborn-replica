@@ -41,6 +41,7 @@ function IntegrationsAdmin() {
   const [hasEnvFallback, setHasEnvFallback] = useState(false);
   const [webhookOrigin, setWebhookOrigin] = useState("");
   const [copiedWebhook, setCopiedWebhook] = useState(false);
+  const [copiedPreset, setCopiedPreset] = useState<string | null>(null);
   const [utm, setUtm] = useState({
     baseUrl: "",
     source: "google",
@@ -50,6 +51,16 @@ function IntegrationsAdmin() {
     term: "",
   });
   const [copiedUtm, setCopiedUtm] = useState(false);
+
+  const copyPreset = async (key: string, value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedPreset(key);
+      setTimeout(() => setCopiedPreset((k) => (k === key ? null : k)), 2000);
+    } catch {
+      toast.error("Não foi possível copiar.");
+    }
+  };
 
   useEffect(() => {
     if (data) setForm(data);
