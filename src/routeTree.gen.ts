@@ -9,38 +9,476 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as PoliticasRouteImport } from './routes/politicas'
+import { Route as PagamentoAprovadoRouteImport } from './routes/pagamento-aprovado'
+import { Route as CurupiroRouteImport } from './routes/curupiro'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as BuscaRouteImport } from './routes/busca'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AjudaRouteImport } from './routes/ajuda'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CurupiroIndexRouteImport } from './routes/curupiro.index'
+import { Route as ProdutoIdRouteImport } from './routes/produto.$id'
+import { Route as CurupiroSettingsRouteImport } from './routes/curupiro.settings'
+import { Route as CurupiroScriptsRouteImport } from './routes/curupiro.scripts'
+import { Route as CurupiroProdutosRouteImport } from './routes/curupiro.produtos'
+import { Route as CurupiroPedidosRouteImport } from './routes/curupiro.pedidos'
+import { Route as CurupiroIntegracoesRouteImport } from './routes/curupiro.integracoes'
+import { Route as CurupiroDiagnosticoRouteImport } from './routes/curupiro.diagnostico'
+import { Route as CurupiroCuponsRouteImport } from './routes/curupiro.cupons'
+import { Route as CurupiroColecoesRouteImport } from './routes/curupiro.colecoes'
+import { Route as CurupiroBannersRouteImport } from './routes/curupiro.banners'
+import { Route as CurupiroAnalyticsRouteImport } from './routes/curupiro.analytics'
+import { Route as ColecaoSlugRouteImport } from './routes/colecao.$slug'
+import { Route as CheckoutSlugRouteImport } from './routes/checkout.$slug'
+import { Route as CategoriaSlugRouteImport } from './routes/categoria.$slug'
+import { Route as AuthenticatedContaRouteImport } from './routes/_authenticated/conta'
+import { Route as PrefixSlugRouteImport } from './routes/$prefix.$slug'
+import { Route as AuthenticatedContaPedidosRouteImport } from './routes/_authenticated/conta.pedidos'
+import { Route as AuthenticatedContaFavoritosRouteImport } from './routes/_authenticated/conta.favoritos'
+import { Route as AuthenticatedContaEnderecosRouteImport } from './routes/_authenticated/conta.enderecos'
+import { Route as ApiPublicWebhooksStreetpaysRouteImport } from './routes/api/public/webhooks.streetpays'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticasRoute = PoliticasRouteImport.update({
+  id: '/politicas',
+  path: '/politicas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagamentoAprovadoRoute = PagamentoAprovadoRouteImport.update({
+  id: '/pagamento-aprovado',
+  path: '/pagamento-aprovado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CurupiroRoute = CurupiroRouteImport.update({
+  id: '/curupiro',
+  path: '/curupiro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuscaRoute = BuscaRouteImport.update({
+  id: '/busca',
+  path: '/busca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AjudaRoute = AjudaRouteImport.update({
+  id: '/ajuda',
+  path: '/ajuda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CurupiroIndexRoute = CurupiroIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const ProdutoIdRoute = ProdutoIdRouteImport.update({
+  id: '/produto/$id',
+  path: '/produto/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CurupiroSettingsRoute = CurupiroSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroScriptsRoute = CurupiroScriptsRouteImport.update({
+  id: '/scripts',
+  path: '/scripts',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroProdutosRoute = CurupiroProdutosRouteImport.update({
+  id: '/produtos',
+  path: '/produtos',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroPedidosRoute = CurupiroPedidosRouteImport.update({
+  id: '/pedidos',
+  path: '/pedidos',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroIntegracoesRoute = CurupiroIntegracoesRouteImport.update({
+  id: '/integracoes',
+  path: '/integracoes',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroDiagnosticoRoute = CurupiroDiagnosticoRouteImport.update({
+  id: '/diagnostico',
+  path: '/diagnostico',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroCuponsRoute = CurupiroCuponsRouteImport.update({
+  id: '/cupons',
+  path: '/cupons',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroColecoesRoute = CurupiroColecoesRouteImport.update({
+  id: '/colecoes',
+  path: '/colecoes',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroBannersRoute = CurupiroBannersRouteImport.update({
+  id: '/banners',
+  path: '/banners',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const CurupiroAnalyticsRoute = CurupiroAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => CurupiroRoute,
+} as any)
+const ColecaoSlugRoute = ColecaoSlugRouteImport.update({
+  id: '/colecao/$slug',
+  path: '/colecao/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutSlugRoute = CheckoutSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CheckoutRoute,
+} as any)
+const CategoriaSlugRoute = CategoriaSlugRouteImport.update({
+  id: '/categoria/$slug',
+  path: '/categoria/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedContaRoute = AuthenticatedContaRouteImport.update({
+  id: '/conta',
+  path: '/conta',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const PrefixSlugRoute = PrefixSlugRouteImport.update({
+  id: '/$prefix/$slug',
+  path: '/$prefix/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedContaPedidosRoute =
+  AuthenticatedContaPedidosRouteImport.update({
+    id: '/pedidos',
+    path: '/pedidos',
+    getParentRoute: () => AuthenticatedContaRoute,
+  } as any)
+const AuthenticatedContaFavoritosRoute =
+  AuthenticatedContaFavoritosRouteImport.update({
+    id: '/favoritos',
+    path: '/favoritos',
+    getParentRoute: () => AuthenticatedContaRoute,
+  } as any)
+const AuthenticatedContaEnderecosRoute =
+  AuthenticatedContaEnderecosRouteImport.update({
+    id: '/enderecos',
+    path: '/enderecos',
+    getParentRoute: () => AuthenticatedContaRoute,
+  } as any)
+const ApiPublicWebhooksStreetpaysRoute =
+  ApiPublicWebhooksStreetpaysRouteImport.update({
+    id: '/api/public/webhooks/streetpays',
+    path: '/api/public/webhooks/streetpays',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ajuda': typeof AjudaRoute
+  '/auth': typeof AuthRoute
+  '/busca': typeof BuscaRoute
+  '/checkout': typeof CheckoutRouteWithChildren
+  '/curupiro': typeof CurupiroRouteWithChildren
+  '/pagamento-aprovado': typeof PagamentoAprovadoRoute
+  '/politicas': typeof PoliticasRoute
+  '/sobre': typeof SobreRoute
+  '/$prefix/$slug': typeof PrefixSlugRoute
+  '/conta': typeof AuthenticatedContaRouteWithChildren
+  '/categoria/$slug': typeof CategoriaSlugRoute
+  '/checkout/$slug': typeof CheckoutSlugRoute
+  '/colecao/$slug': typeof ColecaoSlugRoute
+  '/curupiro/analytics': typeof CurupiroAnalyticsRoute
+  '/curupiro/banners': typeof CurupiroBannersRoute
+  '/curupiro/colecoes': typeof CurupiroColecoesRoute
+  '/curupiro/cupons': typeof CurupiroCuponsRoute
+  '/curupiro/diagnostico': typeof CurupiroDiagnosticoRoute
+  '/curupiro/integracoes': typeof CurupiroIntegracoesRoute
+  '/curupiro/pedidos': typeof CurupiroPedidosRoute
+  '/curupiro/produtos': typeof CurupiroProdutosRoute
+  '/curupiro/scripts': typeof CurupiroScriptsRoute
+  '/curupiro/settings': typeof CurupiroSettingsRoute
+  '/produto/$id': typeof ProdutoIdRoute
+  '/curupiro/': typeof CurupiroIndexRoute
+  '/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
+  '/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
+  '/conta/pedidos': typeof AuthenticatedContaPedidosRoute
+  '/api/public/webhooks/streetpays': typeof ApiPublicWebhooksStreetpaysRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ajuda': typeof AjudaRoute
+  '/auth': typeof AuthRoute
+  '/busca': typeof BuscaRoute
+  '/checkout': typeof CheckoutRouteWithChildren
+  '/pagamento-aprovado': typeof PagamentoAprovadoRoute
+  '/politicas': typeof PoliticasRoute
+  '/sobre': typeof SobreRoute
+  '/$prefix/$slug': typeof PrefixSlugRoute
+  '/conta': typeof AuthenticatedContaRouteWithChildren
+  '/categoria/$slug': typeof CategoriaSlugRoute
+  '/checkout/$slug': typeof CheckoutSlugRoute
+  '/colecao/$slug': typeof ColecaoSlugRoute
+  '/curupiro/analytics': typeof CurupiroAnalyticsRoute
+  '/curupiro/banners': typeof CurupiroBannersRoute
+  '/curupiro/colecoes': typeof CurupiroColecoesRoute
+  '/curupiro/cupons': typeof CurupiroCuponsRoute
+  '/curupiro/diagnostico': typeof CurupiroDiagnosticoRoute
+  '/curupiro/integracoes': typeof CurupiroIntegracoesRoute
+  '/curupiro/pedidos': typeof CurupiroPedidosRoute
+  '/curupiro/produtos': typeof CurupiroProdutosRoute
+  '/curupiro/scripts': typeof CurupiroScriptsRoute
+  '/curupiro/settings': typeof CurupiroSettingsRoute
+  '/produto/$id': typeof ProdutoIdRoute
+  '/curupiro': typeof CurupiroIndexRoute
+  '/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
+  '/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
+  '/conta/pedidos': typeof AuthenticatedContaPedidosRoute
+  '/api/public/webhooks/streetpays': typeof ApiPublicWebhooksStreetpaysRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/ajuda': typeof AjudaRoute
+  '/auth': typeof AuthRoute
+  '/busca': typeof BuscaRoute
+  '/checkout': typeof CheckoutRouteWithChildren
+  '/curupiro': typeof CurupiroRouteWithChildren
+  '/pagamento-aprovado': typeof PagamentoAprovadoRoute
+  '/politicas': typeof PoliticasRoute
+  '/sobre': typeof SobreRoute
+  '/$prefix/$slug': typeof PrefixSlugRoute
+  '/_authenticated/conta': typeof AuthenticatedContaRouteWithChildren
+  '/categoria/$slug': typeof CategoriaSlugRoute
+  '/checkout/$slug': typeof CheckoutSlugRoute
+  '/colecao/$slug': typeof ColecaoSlugRoute
+  '/curupiro/analytics': typeof CurupiroAnalyticsRoute
+  '/curupiro/banners': typeof CurupiroBannersRoute
+  '/curupiro/colecoes': typeof CurupiroColecoesRoute
+  '/curupiro/cupons': typeof CurupiroCuponsRoute
+  '/curupiro/diagnostico': typeof CurupiroDiagnosticoRoute
+  '/curupiro/integracoes': typeof CurupiroIntegracoesRoute
+  '/curupiro/pedidos': typeof CurupiroPedidosRoute
+  '/curupiro/produtos': typeof CurupiroProdutosRoute
+  '/curupiro/scripts': typeof CurupiroScriptsRoute
+  '/curupiro/settings': typeof CurupiroSettingsRoute
+  '/produto/$id': typeof ProdutoIdRoute
+  '/curupiro/': typeof CurupiroIndexRoute
+  '/_authenticated/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
+  '/_authenticated/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
+  '/_authenticated/conta/pedidos': typeof AuthenticatedContaPedidosRoute
+  '/api/public/webhooks/streetpays': typeof ApiPublicWebhooksStreetpaysRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ajuda'
+    | '/auth'
+    | '/busca'
+    | '/checkout'
+    | '/curupiro'
+    | '/pagamento-aprovado'
+    | '/politicas'
+    | '/sobre'
+    | '/$prefix/$slug'
+    | '/conta'
+    | '/categoria/$slug'
+    | '/checkout/$slug'
+    | '/colecao/$slug'
+    | '/curupiro/analytics'
+    | '/curupiro/banners'
+    | '/curupiro/colecoes'
+    | '/curupiro/cupons'
+    | '/curupiro/diagnostico'
+    | '/curupiro/integracoes'
+    | '/curupiro/pedidos'
+    | '/curupiro/produtos'
+    | '/curupiro/scripts'
+    | '/curupiro/settings'
+    | '/produto/$id'
+    | '/curupiro/'
+    | '/conta/enderecos'
+    | '/conta/favoritos'
+    | '/conta/pedidos'
+    | '/api/public/webhooks/streetpays'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ajuda'
+    | '/auth'
+    | '/busca'
+    | '/checkout'
+    | '/pagamento-aprovado'
+    | '/politicas'
+    | '/sobre'
+    | '/$prefix/$slug'
+    | '/conta'
+    | '/categoria/$slug'
+    | '/checkout/$slug'
+    | '/colecao/$slug'
+    | '/curupiro/analytics'
+    | '/curupiro/banners'
+    | '/curupiro/colecoes'
+    | '/curupiro/cupons'
+    | '/curupiro/diagnostico'
+    | '/curupiro/integracoes'
+    | '/curupiro/pedidos'
+    | '/curupiro/produtos'
+    | '/curupiro/scripts'
+    | '/curupiro/settings'
+    | '/produto/$id'
+    | '/curupiro'
+    | '/conta/enderecos'
+    | '/conta/favoritos'
+    | '/conta/pedidos'
+    | '/api/public/webhooks/streetpays'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/ajuda'
+    | '/auth'
+    | '/busca'
+    | '/checkout'
+    | '/curupiro'
+    | '/pagamento-aprovado'
+    | '/politicas'
+    | '/sobre'
+    | '/$prefix/$slug'
+    | '/_authenticated/conta'
+    | '/categoria/$slug'
+    | '/checkout/$slug'
+    | '/colecao/$slug'
+    | '/curupiro/analytics'
+    | '/curupiro/banners'
+    | '/curupiro/colecoes'
+    | '/curupiro/cupons'
+    | '/curupiro/diagnostico'
+    | '/curupiro/integracoes'
+    | '/curupiro/pedidos'
+    | '/curupiro/produtos'
+    | '/curupiro/scripts'
+    | '/curupiro/settings'
+    | '/produto/$id'
+    | '/curupiro/'
+    | '/_authenticated/conta/enderecos'
+    | '/_authenticated/conta/favoritos'
+    | '/_authenticated/conta/pedidos'
+    | '/api/public/webhooks/streetpays'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AjudaRoute: typeof AjudaRoute
+  AuthRoute: typeof AuthRoute
+  BuscaRoute: typeof BuscaRoute
+  CheckoutRoute: typeof CheckoutRouteWithChildren
+  CurupiroRoute: typeof CurupiroRouteWithChildren
+  PagamentoAprovadoRoute: typeof PagamentoAprovadoRoute
+  PoliticasRoute: typeof PoliticasRoute
+  SobreRoute: typeof SobreRoute
+  PrefixSlugRoute: typeof PrefixSlugRoute
+  CategoriaSlugRoute: typeof CategoriaSlugRoute
+  ColecaoSlugRoute: typeof ColecaoSlugRoute
+  ProdutoIdRoute: typeof ProdutoIdRoute
+  ApiPublicWebhooksStreetpaysRoute: typeof ApiPublicWebhooksStreetpaysRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politicas': {
+      id: '/politicas'
+      path: '/politicas'
+      fullPath: '/politicas'
+      preLoaderRoute: typeof PoliticasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pagamento-aprovado': {
+      id: '/pagamento-aprovado'
+      path: '/pagamento-aprovado'
+      fullPath: '/pagamento-aprovado'
+      preLoaderRoute: typeof PagamentoAprovadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/curupiro': {
+      id: '/curupiro'
+      path: '/curupiro'
+      fullPath: '/curupiro'
+      preLoaderRoute: typeof CurupiroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/busca': {
+      id: '/busca'
+      path: '/busca'
+      fullPath: '/busca'
+      preLoaderRoute: typeof BuscaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ajuda': {
+      id: '/ajuda'
+      path: '/ajuda'
+      fullPath: '/ajuda'
+      preLoaderRoute: typeof AjudaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +486,242 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/curupiro/': {
+      id: '/curupiro/'
+      path: '/'
+      fullPath: '/curupiro/'
+      preLoaderRoute: typeof CurupiroIndexRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/produto/$id': {
+      id: '/produto/$id'
+      path: '/produto/$id'
+      fullPath: '/produto/$id'
+      preLoaderRoute: typeof ProdutoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/curupiro/settings': {
+      id: '/curupiro/settings'
+      path: '/settings'
+      fullPath: '/curupiro/settings'
+      preLoaderRoute: typeof CurupiroSettingsRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/scripts': {
+      id: '/curupiro/scripts'
+      path: '/scripts'
+      fullPath: '/curupiro/scripts'
+      preLoaderRoute: typeof CurupiroScriptsRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/produtos': {
+      id: '/curupiro/produtos'
+      path: '/produtos'
+      fullPath: '/curupiro/produtos'
+      preLoaderRoute: typeof CurupiroProdutosRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/pedidos': {
+      id: '/curupiro/pedidos'
+      path: '/pedidos'
+      fullPath: '/curupiro/pedidos'
+      preLoaderRoute: typeof CurupiroPedidosRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/integracoes': {
+      id: '/curupiro/integracoes'
+      path: '/integracoes'
+      fullPath: '/curupiro/integracoes'
+      preLoaderRoute: typeof CurupiroIntegracoesRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/diagnostico': {
+      id: '/curupiro/diagnostico'
+      path: '/diagnostico'
+      fullPath: '/curupiro/diagnostico'
+      preLoaderRoute: typeof CurupiroDiagnosticoRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/cupons': {
+      id: '/curupiro/cupons'
+      path: '/cupons'
+      fullPath: '/curupiro/cupons'
+      preLoaderRoute: typeof CurupiroCuponsRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/colecoes': {
+      id: '/curupiro/colecoes'
+      path: '/colecoes'
+      fullPath: '/curupiro/colecoes'
+      preLoaderRoute: typeof CurupiroColecoesRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/banners': {
+      id: '/curupiro/banners'
+      path: '/banners'
+      fullPath: '/curupiro/banners'
+      preLoaderRoute: typeof CurupiroBannersRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/curupiro/analytics': {
+      id: '/curupiro/analytics'
+      path: '/analytics'
+      fullPath: '/curupiro/analytics'
+      preLoaderRoute: typeof CurupiroAnalyticsRouteImport
+      parentRoute: typeof CurupiroRoute
+    }
+    '/colecao/$slug': {
+      id: '/colecao/$slug'
+      path: '/colecao/$slug'
+      fullPath: '/colecao/$slug'
+      preLoaderRoute: typeof ColecaoSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/$slug': {
+      id: '/checkout/$slug'
+      path: '/$slug'
+      fullPath: '/checkout/$slug'
+      preLoaderRoute: typeof CheckoutSlugRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
+    '/categoria/$slug': {
+      id: '/categoria/$slug'
+      path: '/categoria/$slug'
+      fullPath: '/categoria/$slug'
+      preLoaderRoute: typeof CategoriaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/conta': {
+      id: '/_authenticated/conta'
+      path: '/conta'
+      fullPath: '/conta'
+      preLoaderRoute: typeof AuthenticatedContaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/$prefix/$slug': {
+      id: '/$prefix/$slug'
+      path: '/$prefix/$slug'
+      fullPath: '/$prefix/$slug'
+      preLoaderRoute: typeof PrefixSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/conta/pedidos': {
+      id: '/_authenticated/conta/pedidos'
+      path: '/pedidos'
+      fullPath: '/conta/pedidos'
+      preLoaderRoute: typeof AuthenticatedContaPedidosRouteImport
+      parentRoute: typeof AuthenticatedContaRoute
+    }
+    '/_authenticated/conta/favoritos': {
+      id: '/_authenticated/conta/favoritos'
+      path: '/favoritos'
+      fullPath: '/conta/favoritos'
+      preLoaderRoute: typeof AuthenticatedContaFavoritosRouteImport
+      parentRoute: typeof AuthenticatedContaRoute
+    }
+    '/_authenticated/conta/enderecos': {
+      id: '/_authenticated/conta/enderecos'
+      path: '/enderecos'
+      fullPath: '/conta/enderecos'
+      preLoaderRoute: typeof AuthenticatedContaEnderecosRouteImport
+      parentRoute: typeof AuthenticatedContaRoute
+    }
+    '/api/public/webhooks/streetpays': {
+      id: '/api/public/webhooks/streetpays'
+      path: '/api/public/webhooks/streetpays'
+      fullPath: '/api/public/webhooks/streetpays'
+      preLoaderRoute: typeof ApiPublicWebhooksStreetpaysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedContaRouteChildren {
+  AuthenticatedContaEnderecosRoute: typeof AuthenticatedContaEnderecosRoute
+  AuthenticatedContaFavoritosRoute: typeof AuthenticatedContaFavoritosRoute
+  AuthenticatedContaPedidosRoute: typeof AuthenticatedContaPedidosRoute
+}
+
+const AuthenticatedContaRouteChildren: AuthenticatedContaRouteChildren = {
+  AuthenticatedContaEnderecosRoute: AuthenticatedContaEnderecosRoute,
+  AuthenticatedContaFavoritosRoute: AuthenticatedContaFavoritosRoute,
+  AuthenticatedContaPedidosRoute: AuthenticatedContaPedidosRoute,
+}
+
+const AuthenticatedContaRouteWithChildren =
+  AuthenticatedContaRoute._addFileChildren(AuthenticatedContaRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedContaRoute: typeof AuthenticatedContaRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedContaRoute: AuthenticatedContaRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
+interface CheckoutRouteChildren {
+  CheckoutSlugRoute: typeof CheckoutSlugRoute
+}
+
+const CheckoutRouteChildren: CheckoutRouteChildren = {
+  CheckoutSlugRoute: CheckoutSlugRoute,
+}
+
+const CheckoutRouteWithChildren = CheckoutRoute._addFileChildren(
+  CheckoutRouteChildren,
+)
+
+interface CurupiroRouteChildren {
+  CurupiroAnalyticsRoute: typeof CurupiroAnalyticsRoute
+  CurupiroBannersRoute: typeof CurupiroBannersRoute
+  CurupiroColecoesRoute: typeof CurupiroColecoesRoute
+  CurupiroCuponsRoute: typeof CurupiroCuponsRoute
+  CurupiroDiagnosticoRoute: typeof CurupiroDiagnosticoRoute
+  CurupiroIntegracoesRoute: typeof CurupiroIntegracoesRoute
+  CurupiroPedidosRoute: typeof CurupiroPedidosRoute
+  CurupiroProdutosRoute: typeof CurupiroProdutosRoute
+  CurupiroScriptsRoute: typeof CurupiroScriptsRoute
+  CurupiroSettingsRoute: typeof CurupiroSettingsRoute
+  CurupiroIndexRoute: typeof CurupiroIndexRoute
+}
+
+const CurupiroRouteChildren: CurupiroRouteChildren = {
+  CurupiroAnalyticsRoute: CurupiroAnalyticsRoute,
+  CurupiroBannersRoute: CurupiroBannersRoute,
+  CurupiroColecoesRoute: CurupiroColecoesRoute,
+  CurupiroCuponsRoute: CurupiroCuponsRoute,
+  CurupiroDiagnosticoRoute: CurupiroDiagnosticoRoute,
+  CurupiroIntegracoesRoute: CurupiroIntegracoesRoute,
+  CurupiroPedidosRoute: CurupiroPedidosRoute,
+  CurupiroProdutosRoute: CurupiroProdutosRoute,
+  CurupiroScriptsRoute: CurupiroScriptsRoute,
+  CurupiroSettingsRoute: CurupiroSettingsRoute,
+  CurupiroIndexRoute: CurupiroIndexRoute,
+}
+
+const CurupiroRouteWithChildren = CurupiroRoute._addFileChildren(
+  CurupiroRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AjudaRoute: AjudaRoute,
+  AuthRoute: AuthRoute,
+  BuscaRoute: BuscaRoute,
+  CheckoutRoute: CheckoutRouteWithChildren,
+  CurupiroRoute: CurupiroRouteWithChildren,
+  PagamentoAprovadoRoute: PagamentoAprovadoRoute,
+  PoliticasRoute: PoliticasRoute,
+  SobreRoute: SobreRoute,
+  PrefixSlugRoute: PrefixSlugRoute,
+  CategoriaSlugRoute: CategoriaSlugRoute,
+  ColecaoSlugRoute: ColecaoSlugRoute,
+  ProdutoIdRoute: ProdutoIdRoute,
+  ApiPublicWebhooksStreetpaysRoute: ApiPublicWebhooksStreetpaysRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
