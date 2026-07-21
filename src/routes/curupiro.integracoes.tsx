@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Cable, Save, KeyRound, Eye, EyeOff } from "lucide-react";
+import { Cable, Save, KeyRound, Eye, EyeOff, Copy, Check } from "lucide-react";
 import {
   getSettingsFn,
   upsertSettingsFn,
@@ -39,10 +39,16 @@ function IntegrationsAdmin() {
   const [gatewayLoaded, setGatewayLoaded] = useState(false);
   const [savingGateway, setSavingGateway] = useState(false);
   const [hasEnvFallback, setHasEnvFallback] = useState(false);
+  const [webhookOrigin, setWebhookOrigin] = useState("");
+  const [copiedWebhook, setCopiedWebhook] = useState(false);
 
   useEffect(() => {
     if (data) setForm(data);
   }, [data]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") setWebhookOrigin(window.location.origin);
+  }, []);
 
   const getPassword = () => (typeof window !== "undefined" ? localStorage.getItem("oe.pw.v1") : null);
 
@@ -97,6 +103,19 @@ function IntegrationsAdmin() {
       else toast.success("Chave do gateway salva! O checkout já está funcionando.");
     } finally {
       setSavingGateway(false);
+    }
+  };
+
+  const webhookUrl = webhookOrigin ? `${webhookOrigin}/api/public/webhooks/streetpays` : "";
+
+  const copyWebhook = async () => {
+    if (!webhookUrl) return;
+    try {
+      await navigator.clipboard.writeText(webhookUrl);
+      setCopiedWebhook(true);
+      setTimeout(() => setCopiedWebhook(false), 2000);
+    } catch {
+      toast.error("Não foi possível copiar o link.");
     }
   };
 
@@ -172,6 +191,25 @@ function IntegrationsAdmin() {
         >
           <Save className="h-4 w-4" /> {savingGateway ? "Salvando..." : "Salvar chave do gateway"}
         </button>
+
+        <Field label="Webhook URL — StreetPays" hint="Copie este endereço e cole no painel da StreetPays como URL de notificação/webhook.">
+          <div className="flex items-center gap-2">
+            <input
+              value={webhookUrl}
+              readOnly
+              className="input cursor-text bg-muted font-mono text-xs"
+            />
+            <button
+              type="button"
+              onClick={copyWebhook}
+              disabled={!webhookUrl}
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-white text-muted-foreground hover:text-ink disabled:opacity-60"
+              aria-label="Copiar webhook URL"
+            >
+              {copiedWebhook ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
+            </button>
+          </div>
+        </Field>
       </div>
 
       {/* Tracking */}
