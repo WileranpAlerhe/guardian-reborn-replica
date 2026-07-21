@@ -491,3 +491,40 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
     </label>
   );
 }
+
+function PresetRow({
+  title,
+  hint,
+  value,
+  copied,
+  onCopy,
+}: {
+  title: string;
+  hint?: string;
+  value: string;
+  copied: boolean;
+  onCopy: (v: string) => void;
+}) {
+  return (
+    <div className="space-y-1">
+      <div className="text-[11px] font-bold uppercase tracking-wider text-ink">{title}</div>
+      <div className="flex items-center gap-2">
+        <input
+          value={value}
+          readOnly
+          onFocus={(e) => e.currentTarget.select()}
+          className="w-full rounded-lg border border-border bg-white px-2.5 py-2 font-mono text-[11px]"
+        />
+        <button
+          type="button"
+          onClick={() => onCopy(value)}
+          className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 text-[11px] font-black uppercase text-primary-foreground"
+        >
+          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? "Copiado" : "Copiar"}
+        </button>
+      </div>
+      {hint && <div className="text-[11px] text-muted-foreground">{hint}</div>}
+    </div>
+  );
+}
