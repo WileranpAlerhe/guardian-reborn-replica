@@ -41,13 +41,25 @@ function IntegrationsAdmin() {
   const [hasEnvFallback, setHasEnvFallback] = useState(false);
   const [webhookOrigin, setWebhookOrigin] = useState("");
   const [copiedWebhook, setCopiedWebhook] = useState(false);
+  const [utm, setUtm] = useState({
+    baseUrl: "",
+    source: "google",
+    medium: "cpc",
+    campaign: "",
+    content: "",
+    term: "",
+  });
+  const [copiedUtm, setCopiedUtm] = useState(false);
 
   useEffect(() => {
     if (data) setForm(data);
   }, [data]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") setWebhookOrigin(window.location.origin);
+    if (typeof window !== "undefined") {
+      setWebhookOrigin(window.location.origin);
+      setUtm((u) => (u.baseUrl ? u : { ...u, baseUrl: window.location.origin + "/" }));
+    }
   }, []);
 
   const getPassword = () => (typeof window !== "undefined" ? localStorage.getItem("oe.pw.v1") : null);
