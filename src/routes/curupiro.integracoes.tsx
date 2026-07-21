@@ -106,6 +106,19 @@ function IntegrationsAdmin() {
     }
   };
 
+  const webhookUrl = webhookOrigin ? `${webhookOrigin}/api/public/webhooks/streetpays` : "";
+
+  const copyWebhook = async () => {
+    if (!webhookUrl) return;
+    try {
+      await navigator.clipboard.writeText(webhookUrl);
+      setCopiedWebhook(true);
+      setTimeout(() => setCopiedWebhook(false), 2000);
+    } catch {
+      toast.error("Não foi possível copiar o link.");
+    }
+  };
+
   return (
     <div className="max-w-2xl space-y-6">
       <div className="flex items-center gap-3">
