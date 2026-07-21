@@ -184,6 +184,48 @@ function IntegrationsAdmin() {
         </div>
       </div>
 
+      {/* WEBHOOK — bloco fixo no topo, fácil de copiar */}
+      <div className="space-y-3 rounded-2xl border-2 border-success/50 bg-success/5 p-5 shadow-card">
+        <div className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-success text-white">
+            <Cable className="h-4 w-4" />
+          </span>
+          <div>
+            <h2 className="text-sm font-black uppercase tracking-wider text-ink">
+              Webhook StreetPays — cole no gateway
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              No painel da StreetPays, em <strong>Configurações → Webhooks</strong>, cadastre esta URL
+              para receber notificações de pagamento (PAID / FAILED / REFUNDED).
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            value={webhookUrl}
+            readOnly
+            onFocus={(e) => e.currentTarget.select()}
+            className="input cursor-text bg-white font-mono text-xs"
+          />
+          <button
+            type="button"
+            onClick={copyWebhook}
+            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-xl bg-success px-4 text-xs font-black uppercase text-white shadow-cta"
+          >
+            {copiedWebhook ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            {copiedWebhook ? "Copiado!" : "Copiar"}
+          </button>
+        </div>
+        <div className="text-[11px] text-muted-foreground">
+          Método: <span className="font-mono">POST</span> · Content-Type:{" "}
+          <span className="font-mono">application/json</span> · Eventos:{" "}
+          <span className="font-mono">payment.paid</span>,{" "}
+          <span className="font-mono">payment.failed</span>,{" "}
+          <span className="font-mono">payment.refunded</span>
+        </div>
+      </div>
+
+
       {/* Gateway de Pagamento */}
       <div className="space-y-4 rounded-2xl border border-border bg-card p-5 shadow-card">
         <div className="flex items-center gap-2">
