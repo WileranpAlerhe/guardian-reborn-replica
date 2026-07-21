@@ -41,6 +41,7 @@ function IntegrationsAdmin() {
   const [hasEnvFallback, setHasEnvFallback] = useState(false);
   const [webhookOrigin, setWebhookOrigin] = useState("");
   const [copiedWebhook, setCopiedWebhook] = useState(false);
+  const [copiedPreset, setCopiedPreset] = useState<string | null>(null);
   const [utm, setUtm] = useState({
     baseUrl: "",
     source: "google",
@@ -50,6 +51,16 @@ function IntegrationsAdmin() {
     term: "",
   });
   const [copiedUtm, setCopiedUtm] = useState(false);
+
+  const copyPreset = async (key: string, value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedPreset(key);
+      setTimeout(() => setCopiedPreset((k) => (k === key ? null : k)), 2000);
+    } catch {
+      toast.error("Não foi possível copiar.");
+    }
+  };
 
   useEffect(() => {
     if (data) setForm(data);
@@ -173,6 +184,48 @@ function IntegrationsAdmin() {
         </div>
       </div>
 
+      {/* WEBHOOK — bloco fixo no topo, fácil de copiar */}
+      <div className="space-y-3 rounded-2xl border-2 border-success/50 bg-success/5 p-5 shadow-card">
+        <div className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-success text-white">
+            <Cable className="h-4 w-4" />
+          </span>
+          <div>
+            <h2 className="text-sm font-black uppercase tracking-wider text-ink">
+              Webhook StreetPays — cole no gateway
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              No painel da StreetPays, em <strong>Configurações → Webhooks</strong>, cadastre esta URL
+              para receber notificações de pagamento (PAID / FAILED / REFUNDED).
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            value={webhookUrl}
+            readOnly
+            onFocus={(e) => e.currentTarget.select()}
+            className="input cursor-text bg-white font-mono text-xs"
+          />
+          <button
+            type="button"
+            onClick={copyWebhook}
+            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-xl bg-success px-4 text-xs font-black uppercase text-white shadow-cta"
+          >
+            {copiedWebhook ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            {copiedWebhook ? "Copiado!" : "Copiar"}
+          </button>
+        </div>
+        <div className="text-[11px] text-muted-foreground">
+          Método: <span className="font-mono">POST</span> · Content-Type:{" "}
+          <span className="font-mono">application/json</span> · Eventos:{" "}
+          <span className="font-mono">payment.paid</span>,{" "}
+          <span className="font-mono">payment.failed</span>,{" "}
+          <span className="font-mono">payment.refunded</span>
+        </div>
+      </div>
+
+
       {/* Gateway de Pagamento */}
       <div className="space-y-4 rounded-2xl border border-border bg-card p-5 shadow-card">
         <div className="flex items-center gap-2">
@@ -231,25 +284,6 @@ function IntegrationsAdmin() {
         >
           <Save className="h-4 w-4" /> {savingGateway ? "Salvando..." : "Salvar chave do gateway"}
         </button>
-
-        <Field label="Webhook URL — StreetPays" hint="Copie este endereço e cole no painel da StreetPays como URL de notificação/webhook.">
-          <div className="flex items-center gap-2">
-            <input
-              value={webhookUrl}
-              readOnly
-              className="input cursor-text bg-muted font-mono text-xs"
-            />
-            <button
-              type="button"
-              onClick={copyWebhook}
-              disabled={!webhookUrl}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-white text-muted-foreground hover:text-ink disabled:opacity-60"
-              aria-label="Copiar webhook URL"
-            >
-              {copiedWebhook ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
-            </button>
-          </div>
-        </Field>
       </div>
 
       {/* Tracking */}
@@ -365,13 +399,42 @@ function IntegrationsAdmin() {
           </div>
         </Field>
 
-        <div className="rounded-xl border border-primary/30 bg-primary/5 p-3 text-xs text-ink space-y-1.5">
-          <div><strong>Modelo padrão Google Ads (Search/PMax):</strong></div>
-          <div className="font-mono break-all">?utm_source=google&utm_medium=cpc&utm_campaign={"{campaignid}"}&utm_content={"{creative}"}&utm_term={"{keyword}"}</div>
-          <div className="pt-1"><strong>Meta Ads (Facebook/Instagram):</strong></div>
-          <div className="font-mono break-all">?utm_source=facebook&utm_medium=paid_social&utm_campaign={"{{campaign.name}}"}&utm_content={"{{ad.name}}"}</div>
-          <div className="pt-1"><strong>TikTok Ads:</strong></div>
-          <div className="font-mono break-all">?utm_source=tiktok&utm_medium=paid_social&utm_campaign=__CAMPAIGN_NAME__&utm_content=__AD_NAME__</div>
+        <div className="space-y-3 rounded-xl border border-primary/30 bg-primary/5 p-4">
+          <div className="text-xs font-black uppercase tracking-wider text-ink">
+            Modelos prontos — copie e cole
+          </div>
+
+          <PresetRow
+            title="Google Ads — Sufixo do URL final (Final URL suffix)"
+            hint="Google Ads → Configurações da campanha → URLs da campanha → Sufixo do URL final. Auto-tagging (gclid) fica ligado no painel do Google Ads; o site já persiste o gclid até o checkout."
+            value={"utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_content={creative}&utm_term={keyword}"}
+            copied={copiedPreset === "gads-suffix"}
+            onCopy={(v) => copyPreset("gads-suffix", v)}
+          />
+
+          <PresetRow
+            title="Google Ads — Modelo de acompanhamento (Tracking template)"
+            hint="Opcional. Use quando quiser controlar a URL final via template. Cole em Configurações da conta/campanha → URLs → Modelo de acompanhamento."
+            value={"{lpurl}?utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_content={creative}&utm_term={keyword}&gclid={gclid}"}
+            copied={copiedPreset === "gads-template"}
+            onCopy={(v) => copyPreset("gads-template", v)}
+          />
+
+          <PresetRow
+            title="Meta Ads (Facebook / Instagram) — Parâmetros de URL"
+            hint="Meta Ads Manager → nível do Anúncio → Rastreamento → Parâmetros de URL."
+            value={"utm_source=facebook&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}"}
+            copied={copiedPreset === "meta"}
+            onCopy={(v) => copyPreset("meta", v)}
+          />
+
+          <PresetRow
+            title="TikTok Ads — Parâmetros de URL"
+            hint="TikTok Ads Manager → nível do Anúncio → Parâmetros de URL."
+            value={"utm_source=tiktok&utm_medium=paid_social&utm_campaign=__CAMPAIGN_NAME__&utm_content=__AD_NAME__&utm_term=__CID__"}
+            copied={copiedPreset === "tiktok"}
+            onCopy={(v) => copyPreset("tiktok", v)}
+          />
         </div>
       </div>
 
@@ -426,5 +489,42 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
       {children}
       {hint && <span className="mt-1 block text-[11px] text-muted-foreground">{hint}</span>}
     </label>
+  );
+}
+
+function PresetRow({
+  title,
+  hint,
+  value,
+  copied,
+  onCopy,
+}: {
+  title: string;
+  hint?: string;
+  value: string;
+  copied: boolean;
+  onCopy: (v: string) => void;
+}) {
+  return (
+    <div className="space-y-1">
+      <div className="text-[11px] font-bold uppercase tracking-wider text-ink">{title}</div>
+      <div className="flex items-center gap-2">
+        <input
+          value={value}
+          readOnly
+          onFocus={(e) => e.currentTarget.select()}
+          className="w-full rounded-lg border border-border bg-white px-2.5 py-2 font-mono text-[11px]"
+        />
+        <button
+          type="button"
+          onClick={() => onCopy(value)}
+          className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 text-[11px] font-black uppercase text-primary-foreground"
+        >
+          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? "Copiado" : "Copiar"}
+        </button>
+      </div>
+      {hint && <div className="text-[11px] text-muted-foreground">{hint}</div>}
+    </div>
   );
 }
